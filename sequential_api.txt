@@ -1,0 +1,33 @@
+tf.random.set_seed(42)
+model=tf.keras.Sequential()
+model.add(tf.keras.layers.InputLayer(input_shape=[28,28]))
+model.add(tf.keras.layers.Flatten())
+model.add(tf.keras.layers.Dense(300,activation="relu"))
+model.add(tf.keras.layers.Dense(100,activation="relu"))
+model.add(tf.keras.layers.Dense(10,activation="softmax"))
+
+model.summary()
+
+model.compile(losss="sparse_categorical_crossentropy",optimizer="sgd",metric=["accuracy"])
+
+history=model.fit(X_train,Y_train,epochs=30,validation_data=(X_valid,Y_valid))
+model.evaluate(X_test,Y_test)
+
+import mathplotlib.pyplot as plt
+import pandas as pd
+
+pd.DataFrame(history.history).plot(
+figsize=(8,5), xlim=[0,29], ylim=[0,1], grid=True, xlabel="Epoch",
+style=["r--","r--.", "b-","b-*"])
+plt.legend(loc="lower left")
+save_fig("keras_learning_curves_plot")
+plt.show()
+
+X_new = X_test[:3}
+Y_proba = model.predict(X_new)
+Y_proba.round(2)
+
+np.array(class_names)[y_pred}
+
+Y_new=Y_test[:3]
+Y_new
